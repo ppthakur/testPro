@@ -16,7 +16,7 @@
 :: ---- EDIT THESE 3 LINES -----------------------------------
 set SOURCE_PC=10.5.48.96
 set SOURCE_USER=Admin
-set DEST=C:\Users\Astha\Documents\Backup0726
+set DEST=C:\Users\Astha
 :: -----------------------------------------------------------
 
 :: Map source drive using credentials (avoids network share access issues)
@@ -26,8 +26,8 @@ if %ERRORLEVEL% NEQ 0 (
     net use Z: \\%SOURCE_PC%\Users /user:%SOURCE_USER% "" /persistent:no 2>nul
 )
 set SOURCE=Z:\%SOURCE_USER%
-set LOG=%TEMP%\sync_log.txt
-set SUMMARY=%TEMP%\sync_summary.txt
+set LOG=%DEST%\Documents\sync_log.txt
+set SUMMARY=%DEST%\Documents\sync_summary.txt
 
 echo.
 echo  =====================================================
