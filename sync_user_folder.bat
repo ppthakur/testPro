@@ -177,6 +177,10 @@ echo [3/4] AppData\Local >> "%SUMMARY%"
 echo   Syncing AppData\Local...
 call :ROBOSYNC "AppData-Local" "%SOURCE%\AppData\Local" "%DEST%\AppData\Local"
 
+:: WhatsApp UWP (Microsoft Store version) — stored in Packages
+echo   Syncing WhatsApp UWP (Store version)...
+call :ROBOSYNC "WhatsApp-UWP" "%SOURCE%\AppData\Local\Packages\5319275A.WhatsAppDesktop_cv1g1gvanyjgm\LocalState" "%DEST%\AppData\Local\Packages\5319275A.WhatsAppDesktop_cv1g1gvanyjgm\LocalState"
+
 :: ============================================================
 ::  4. APPDATA\LOCALLOW  (browser data, other low-integrity apps)
 :: ============================================================
