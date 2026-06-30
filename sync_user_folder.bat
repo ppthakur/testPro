@@ -166,34 +166,20 @@ call :LOG "------ [2/4] Messaging Apps ------"
 echo. >> "%SUMMARY%"
 echo [2/4] Messaging Apps >> "%SUMMARY%"
 
-if exist "%SOURCE%\AppData\Roaming\WhatsApp" (
-    echo   Syncing WhatsApp...
-    call :ROBOSYNC "WhatsApp" "%SOURCE%\AppData\Roaming\WhatsApp" "%DEST%\AppData\Roaming\WhatsApp"
-)
-if exist "%SOURCE%\AppData\Local\WhatsApp" (
-    echo   Syncing WhatsApp (local)...
-    call :ROBOSYNC "WhatsApp-local" "%SOURCE%\AppData\Local\WhatsApp" "%DEST%\AppData\Local\WhatsApp"
-)
-if exist "%SOURCE%\AppData\Roaming\Telegram Desktop" (
-    echo   Syncing Telegram...
-    call :ROBOSYNC "Telegram" "%SOURCE%\AppData\Roaming\Telegram Desktop" "%DEST%\AppData\Roaming\Telegram Desktop" "\"emoji\""
-)
-if exist "%SOURCE%\AppData\Roaming\Signal" (
-    echo   Syncing Signal...
-    call :ROBOSYNC "Signal" "%SOURCE%\AppData\Roaming\Signal" "%DEST%\AppData\Roaming\Signal"
-)
-if exist "%SOURCE%\AppData\Roaming\discord" (
-    echo   Syncing Discord...
-    call :ROBOSYNC "Discord" "%SOURCE%\AppData\Roaming\discord" "%DEST%\AppData\Roaming\discord"
-)
-if exist "%SOURCE%\AppData\Roaming\Skype" (
-    echo   Syncing Skype...
-    call :ROBOSYNC "Skype" "%SOURCE%\AppData\Roaming\Skype" "%DEST%\AppData\Roaming\Skype"
-)
-if exist "%SOURCE%\AppData\Roaming\ViberPC" (
-    echo   Syncing Viber...
-    call :ROBOSYNC "Viber" "%SOURCE%\AppData\Roaming\ViberPC" "%DEST%\AppData\Roaming\ViberPC"
-)
+echo   Syncing WhatsApp...
+call :ROBOSYNC "WhatsApp" "%SOURCE%\AppData\Roaming\WhatsApp" "%DEST%\AppData\Roaming\WhatsApp"
+echo   Syncing WhatsApp (local)...
+call :ROBOSYNC "WhatsApp-local" "%SOURCE%\AppData\Local\WhatsApp" "%DEST%\AppData\Local\WhatsApp"
+echo   Syncing Telegram...
+call :ROBOSYNC "Telegram" "%SOURCE%\AppData\Roaming\Telegram Desktop" "%DEST%\AppData\Roaming\Telegram Desktop"
+echo   Syncing Signal...
+call :ROBOSYNC "Signal" "%SOURCE%\AppData\Roaming\Signal" "%DEST%\AppData\Roaming\Signal"
+echo   Syncing Discord...
+call :ROBOSYNC "Discord" "%SOURCE%\AppData\Roaming\discord" "%DEST%\AppData\Roaming\discord"
+echo   Syncing Skype...
+call :ROBOSYNC "Skype" "%SOURCE%\AppData\Roaming\Skype" "%DEST%\AppData\Roaming\Skype"
+echo   Syncing Viber...
+call :ROBOSYNC "Viber" "%SOURCE%\AppData\Roaming\ViberPC" "%DEST%\AppData\Roaming\ViberPC"
 
 :: ============================================================
 ::  3. MEETING & RECORDING APPS
@@ -202,18 +188,12 @@ call :LOG "------ [3/4] Meeting Apps ------"
 echo. >> "%SUMMARY%"
 echo [3/4] Meeting Apps >> "%SUMMARY%"
 
-if exist "%SOURCE%\Documents\Zoom" (
-    echo   Syncing Zoom recordings...
-    call :ROBOSYNC "Zoom-recordings" "%SOURCE%\Documents\Zoom" "%DEST%\Documents\Zoom"
-)
-if exist "%SOURCE%\AppData\Roaming\Zoom" (
-    echo   Syncing Zoom settings...
-    call :ROBOSYNC "Zoom-settings" "%SOURCE%\AppData\Roaming\Zoom" "%DEST%\AppData\Roaming\Zoom"
-)
-if exist "%SOURCE%\AppData\Roaming\Microsoft\Teams" (
-    echo   Syncing Microsoft Teams...
-    call :ROBOSYNC "Teams" "%SOURCE%\AppData\Roaming\Microsoft\Teams" "%DEST%\AppData\Roaming\Microsoft\Teams"
-)
+echo   Syncing Zoom recordings...
+call :ROBOSYNC "Zoom-recordings" "%SOURCE%\Documents\Zoom" "%DEST%\Documents\Zoom"
+echo   Syncing Zoom settings...
+call :ROBOSYNC "Zoom-settings" "%SOURCE%\AppData\Roaming\Zoom" "%DEST%\AppData\Roaming\Zoom"
+echo   Syncing Microsoft Teams...
+call :ROBOSYNC "Teams" "%SOURCE%\AppData\Roaming\Microsoft\Teams" "%DEST%\AppData\Roaming\Microsoft\Teams"
 
 :: ============================================================
 ::  4. GENERAL APP SETTINGS
