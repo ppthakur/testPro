@@ -119,7 +119,7 @@ goto :MAIN
 :ROBOSYNC
     :: %1 = label  %2 = source dir  %3 = dest dir
     call :LOG "START: %~1"
-    robocopy "%~2" "%~3" /E /Z /MT:8 /R:3 /W:5 /NP /BYTES /XD "Temp" "temp" "Cache" "cache" "CacheStorage" "Code Cache" "GPUCache" "CachedData" "crashpad" "squirrel-temp" "logs" "Log" /XA:SH /LOG+:"%LOG%"
+    robocopy "%~2" "%~3" /E /Z /MT:8 /R:3 /W:5 /NP /BYTES /IM /FFT /XD "Temp" "temp" "Cache" "cache" "CacheStorage" "Code Cache" "GPUCache" "CachedData" "crashpad" "squirrel-temp" "logs" "Log" /LOG+:"%LOG%"
     set RC=%ERRORLEVEL%
     if %RC% LEQ 7 (
         call :LOG "OK:    %~1  (exit code %RC%)"
