@@ -117,15 +117,9 @@ goto :MAIN
     goto :EOF
 
 :ROBOSYNC
-    :: %1 = label  %2 = source dir  %3 = dest dir  %4 = extra /XD args (optional)
+    :: %1 = label  %2 = source dir  %3 = dest dir
     call :LOG "START: %~1"
-    robocopy "%~2" "%~3" ^
-        /E /Z /MT:8 /R:3 /W:5 /NP /BYTES ^
-        /XD "Temp" "temp" "Cache" "cache" "CacheStorage" "Code Cache" ^
-             "GPUCache" "CachedData" "crashpad" "squirrel-temp" ^
-             "logs" "Log" %~4 ^
-        /XA:SH ^
-        /LOG+:"%LOG%"
+    robocopy "%~2" "%~3" /E /Z /MT:8 /R:3 /W:5 /NP /BYTES /XD "Temp" "temp" "Cache" "cache" "CacheStorage" "Code Cache" "GPUCache" "CachedData" "crashpad" "squirrel-temp" "logs" "Log" /XA:SH /LOG+:"%LOG%"
     set RC=%ERRORLEVEL%
     if %RC% LEQ 7 (
         call :LOG "OK:    %~1  (exit code %RC%)"
@@ -228,13 +222,7 @@ call :LOG "------ [4/4] General AppData\Roaming ------"
 echo. >> "%SUMMARY%"
 echo [4/4] General AppData\Roaming >> "%SUMMARY%"
 echo   Syncing general app settings...
-robocopy "%SOURCE%\AppData\Roaming" "%DEST%\AppData\Roaming" ^
-    /E /Z /MT:8 /R:3 /W:5 /NP /BYTES ^
-    /XD "Temp" "temp" "Cache" "cache" "CacheStorage" "Code Cache" ^
-         "GPUCache" "CachedData" "crashpad" "squirrel-temp" ^
-         "logs" "Log" "Temporary Internet Files" ^
-    /XA:SH ^
-    /LOG+:"%LOG%"
+robocopy "%SOURCE%\AppData\Roaming" "%DEST%\AppData\Roaming" /E /Z /MT:8 /R:3 /W:5 /NP /BYTES /XD "Temp" "temp" "Cache" "cache" "CacheStorage" "Code Cache" "GPUCache" "CachedData" "crashpad" "squirrel-temp" "logs" "Log" "Temporary Internet Files" /XA:SH /LOG+:"%LOG%"
 if %ERRORLEVEL% LEQ 7 (
     echo   [OK] AppData\Roaming >> "%SUMMARY%"
     call :LOG "OK:   AppData\Roaming"
@@ -271,5 +259,5 @@ echo   2. Copy backed-up AppData folders to:
 echo      C:\Users\%USERNAME%\AppData\Roaming\
 echo   3. Launch each app - your data will appear.
 echo.
-echo  Window will close in 15 seconds...
-timeout /t 15 /nokey > nul
+echo  Press any key to close...
+pause
