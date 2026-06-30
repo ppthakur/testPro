@@ -259,4 +259,6 @@ echo   2. Copy backed-up AppData folders to:
 echo      C:\Users\%USERNAME%\AppData\Roaming\
 echo   3. Launch each app - your data will appear.
 echo.
-timeout /t 5 /nokey > nul
+echo.
+echo  *** SYNC FINISHED - window closes in 30 seconds ***
+timeout /t 30 /nokey > nul
