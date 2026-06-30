@@ -98,10 +98,10 @@ set SUMMARY=%DEST%\sync_summary.txt
 echo  Will sync:
 echo    [+] Desktop, Documents, Downloads
 echo    [+] Pictures, Music, Videos
-echo    [+] WhatsApp, Telegram, Signal, Discord, Skype, Viber
-echo    [+] Zoom, Microsoft Teams
-echo    [+] General app settings (AppData\Roaming)
-echo    [-] Temp, Cache, system files  (skipped)
+echo    [+] AppData\Roaming  (ALL apps: WhatsApp, Telegram, Signal, etc.)
+echo    [+] AppData\Local    (WhatsApp local, browser profiles, etc.)
+echo    [+] AppData\LocalLow (browser data, other apps)
+echo    [-] Temp, Cache, GPUCache, crashpad  (skipped to save space)
 echo.
 echo  Press Ctrl+C to cancel, or any key to START...
 pause > nul
@@ -160,56 +160,31 @@ for %%F in (Desktop Documents Downloads Pictures Music Videos Favorites Links Co
 )
 
 :: ============================================================
-::  2. MESSAGING & SOCIAL APPS
+::  2. APPDATA\ROAMING  (all apps — WhatsApp, Telegram, etc.)
 :: ============================================================
-call :LOG "------ [2/4] Messaging Apps ------"
+call :LOG "------ [2/4] AppData\Roaming (all apps) ------"
 echo. >> "%SUMMARY%"
-echo [2/4] Messaging Apps >> "%SUMMARY%"
-
-echo   Syncing WhatsApp...
-call :ROBOSYNC "WhatsApp" "%SOURCE%\AppData\Roaming\WhatsApp" "%DEST%\AppData\Roaming\WhatsApp"
-echo   Syncing WhatsApp (local)...
-call :ROBOSYNC "WhatsApp-local" "%SOURCE%\AppData\Local\WhatsApp" "%DEST%\AppData\Local\WhatsApp"
-echo   Syncing Telegram...
-call :ROBOSYNC "Telegram" "%SOURCE%\AppData\Roaming\Telegram Desktop" "%DEST%\AppData\Roaming\Telegram Desktop"
-echo   Syncing Signal...
-call :ROBOSYNC "Signal" "%SOURCE%\AppData\Roaming\Signal" "%DEST%\AppData\Roaming\Signal"
-echo   Syncing Discord...
-call :ROBOSYNC "Discord" "%SOURCE%\AppData\Roaming\discord" "%DEST%\AppData\Roaming\discord"
-echo   Syncing Skype...
-call :ROBOSYNC "Skype" "%SOURCE%\AppData\Roaming\Skype" "%DEST%\AppData\Roaming\Skype"
-echo   Syncing Viber...
-call :ROBOSYNC "Viber" "%SOURCE%\AppData\Roaming\ViberPC" "%DEST%\AppData\Roaming\ViberPC"
+echo [2/4] AppData\Roaming >> "%SUMMARY%"
+echo   Syncing AppData\Roaming (all apps including WhatsApp, Telegram, Signal...)
+call :ROBOSYNC "AppData-Roaming" "%SOURCE%\AppData\Roaming" "%DEST%\AppData\Roaming"
 
 :: ============================================================
-::  3. MEETING & RECORDING APPS
+::  3. APPDATA\LOCAL  (WhatsApp local, other local app data)
 :: ============================================================
-call :LOG "------ [3/4] Meeting Apps ------"
+call :LOG "------ [3/4] AppData\Local ------"
 echo. >> "%SUMMARY%"
-echo [3/4] Meeting Apps >> "%SUMMARY%"
-
-echo   Syncing Zoom recordings...
-call :ROBOSYNC "Zoom-recordings" "%SOURCE%\Documents\Zoom" "%DEST%\Documents\Zoom"
-echo   Syncing Zoom settings...
-call :ROBOSYNC "Zoom-settings" "%SOURCE%\AppData\Roaming\Zoom" "%DEST%\AppData\Roaming\Zoom"
-echo   Syncing Microsoft Teams...
-call :ROBOSYNC "Teams" "%SOURCE%\AppData\Roaming\Microsoft\Teams" "%DEST%\AppData\Roaming\Microsoft\Teams"
+echo [3/4] AppData\Local >> "%SUMMARY%"
+echo   Syncing AppData\Local...
+call :ROBOSYNC "AppData-Local" "%SOURCE%\AppData\Local" "%DEST%\AppData\Local"
 
 :: ============================================================
-::  4. GENERAL APP SETTINGS
+::  4. APPDATA\LOCALLOW  (browser data, other low-integrity apps)
 :: ============================================================
-call :LOG "------ [4/4] General AppData\Roaming ------"
+call :LOG "------ [4/4] AppData\LocalLow ------"
 echo. >> "%SUMMARY%"
-echo [4/4] General AppData\Roaming >> "%SUMMARY%"
-echo   Syncing general app settings...
-robocopy "%SOURCE%\AppData\Roaming" "%DEST%\AppData\Roaming" /E /Z /MT:8 /R:3 /W:5 /NP /BYTES /XD "Temp" "temp" "Cache" "cache" "CacheStorage" "Code Cache" "GPUCache" "CachedData" "crashpad" "squirrel-temp" "logs" "Log" "Temporary Internet Files" /XA:SH /LOG+:"%LOG%"
-if %ERRORLEVEL% LEQ 7 (
-    echo   [OK] AppData\Roaming >> "%SUMMARY%"
-    call :LOG "OK:   AppData\Roaming"
-) else (
-    echo   [WARN] AppData\Roaming >> "%SUMMARY%"
-    call :LOG "WARN: AppData\Roaming"
-)
+echo [4/4] AppData\LocalLow >> "%SUMMARY%"
+echo   Syncing AppData\LocalLow...
+call :ROBOSYNC "AppData-LocalLow" "%SOURCE%\AppData\LocalLow" "%DEST%\AppData\LocalLow"
 
 :: ============================================================
 ::  DONE
