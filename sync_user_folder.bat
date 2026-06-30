@@ -210,4 +210,4 @@ echo   2. Copy backed-up AppData folders to:
 echo      C:\Users\%USERNAME%\AppData\Roaming\
 echo   3. Launch each app - your data will appear.
 echo.
-pause
+timeout /t 10 /nokey > nul
